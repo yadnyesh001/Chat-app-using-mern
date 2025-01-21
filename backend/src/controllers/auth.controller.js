@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
     }
 
     const user = await User.findOne({email})
-
+ 
     if(user) return res.status(400).json({message: "email already exists"});
 
     const salt = await bcrypt.genSalt(10);
@@ -70,7 +70,7 @@ export const login = async (req, res) => {
       fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
-    });
+    }); 
 
   } catch (error) {
     console.log("Error in login controller", error.message);
@@ -80,7 +80,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.cookie("jwt", "", {
+    res.cookie("jwt-realtime-chat", "", {
       maxAge: 0
     })
     res.status(200).json({message: "logged out successfully"});
@@ -117,4 +117,4 @@ export const checkAuth = (req, res) => {
     console.log("Error in checkAuth controller", error.message);
     res.status(500).json({message: "Internal server error"});
   }
-}
+} 
